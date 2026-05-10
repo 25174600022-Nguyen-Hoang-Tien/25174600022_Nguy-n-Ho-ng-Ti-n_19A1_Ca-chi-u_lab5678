@@ -1,227 +1,198 @@
-# 7.1
-def bai_71():
-    n = int(input("N: "))
-    tu_dien = {}
-    for x in range(1, n+1):
-        tu_dien[x] = x**3
-    print(tu_dien)
+#7.1
+n = int(input("Nhap so nguyen N: "))
+luy_thua_ba = {}
+for x in range(1, n + 1):
+    luy_thua_ba[x] = x ** 3
 
-# 7.2
-def bai_72():
-    n = int(input("So sinh vien: "))
-    sinh_vien = {}
-    
-    for i in range(n):
-        ten = input("Ten: ")
-        diem = float(input("Diem: "))
-        sinh_vien[ten] = diem
-    
-    for ten in sinh_vien:
-        diem_so = sinh_vien[ten]
-        if diem_so >= 8.5:
-            hoc_luc = 'A'
-        elif diem_so >= 7.5:
-            hoc_luc = 'B'
-        elif diem_so >= 6.5:
-            hoc_luc = 'C'
-        elif diem_so >= 5.5:
-            hoc_luc = 'D'
+print("Tu dien {x: x^3}:", luy_thua_ba)
+
+
+#7.2
+n = int(input("Nhap so luong sinh vien: "))
+diem_sv = {}
+for i in range(n):
+    ten  = input("  Ten sinh vien: ")
+    diem = float(input("  Diem thi     : "))
+    diem_sv[ten] = diem
+
+xep_loai_sv = {}
+for ten in diem_sv:
+    diem = diem_sv[ten]
+    if diem >= 90:
+        xep_loai = "A"
+    elif diem >= 80:
+        xep_loai = "B"
+    elif diem >= 70:
+        xep_loai = "C"
+    elif diem >= 60:
+        xep_loai = "D"
+    else:
+        xep_loai = "F"
+    xep_loai_sv[ten] = xep_loai
+
+print("Xep loai sinh vien:")
+for ten in xep_loai_sv:
+    print(" ", ten, ":", diem_sv[ten], "->", xep_loai_sv[ten])
+
+
+#7.3
+tan_suat_xep_loai = {}
+for ten in xep_loai_sv:
+    loai = xep_loai_sv[ten]
+    if loai in tan_suat_xep_loai:
+        tan_suat_xep_loai[loai] = tan_suat_xep_loai[loai] + 1
+    else:
+        tan_suat_xep_loai[loai] = 1
+
+print("Bao cao so luong sinh vien theo hoc luc:")
+for loai in ["A", "B", "C", "D", "F"]:
+    so_luong = tan_suat_xep_loai.get(loai, 0)
+    print("  Loai", loai, ":", so_luong, "sinh vien")
+
+
+#7.4
+van_ban = input("Nhap doan van ban tieng Anh: ")
+
+# Lam sach chuoi: chuyen thuong, xoa ky tu dac biet
+van_ban_sach = ""
+for ky_tu in van_ban.lower():
+    if ky_tu.isalpha() or ky_tu == " ":
+        van_ban_sach = van_ban_sach + ky_tu
+
+danh_sach_tu = van_ban_sach.split()
+
+tan_suat_tu = {}
+for tu in danh_sach_tu:
+    if tu in tan_suat_tu:
+        tan_suat_tu[tu] = tan_suat_tu[tu] + 1
+    else:
+        tan_suat_tu[tu] = 1
+
+print("Tan suat xuat hien tung tu:")
+for tu in tan_suat_tu:
+    print(" ", tu, ":", tan_suat_tu[tu])
+
+
+#7.5
+tan_suat_cao_nhat = 0
+tan_suat_thap_nhat = 0
+
+# Lay tan suat cao va thap
+for tu in tan_suat_tu:
+    if tan_suat_tu[tu] > tan_suat_cao_nhat:
+        tan_suat_cao_nhat = tan_suat_tu[tu]
+
+tan_suat_thap_nhat = tan_suat_cao_nhat
+for tu in tan_suat_tu:
+    if tan_suat_tu[tu] < tan_suat_thap_nhat:
+        tan_suat_thap_nhat = tan_suat_tu[tu]
+
+tu_xuat_hien_nhieu = []
+tu_xuat_hien_it = []
+for tu in tan_suat_tu:
+    if tan_suat_tu[tu] == tan_suat_cao_nhat:
+        tu_xuat_hien_nhieu.append(tu)
+    if tan_suat_tu[tu] == tan_suat_thap_nhat:
+        tu_xuat_hien_it.append(tu)
+
+print("Tu xuat hien nhieu nhat (" + str(tan_suat_cao_nhat) + " lan):", tu_xuat_hien_nhieu)
+print("Tu xuat hien it nhat   (" + str(tan_suat_thap_nhat) + " lan):", tu_xuat_hien_it)
+
+
+#7.6
+hanh_ly = {
+    "backpack": ["sword", "potion", "map", "torch", "shield"],
+    "gold": 100,
+    "food": 5
+}
+
+print("Hanh ly ban dau:", hanh_ly)
+
+# Bo sung khoa pocket
+hanh_ly["pocket"] = ["key", "coin", "note"]
+
+# Cap nhat so luong gold
+hanh_ly["gold"] = hanh_ly["gold"] + 50
+
+print("Hanh ly sau khi cap nhat:")
+for khoa in hanh_ly:
+    print(" ", khoa, ":", hanh_ly[khoa])
+
+
+#7.7
+hanh_ly["backpack"].sort()
+print("Backpack sau khi sap xep:", hanh_ly["backpack"])
+
+vat_pham_xoa = input("Nhap vat pham can xoa khoi backpack: ")
+if vat_pham_xoa in hanh_ly["backpack"]:
+    hanh_ly["backpack"].remove(vat_pham_xoa)
+    print("Da xoa '" + vat_pham_xoa + "' khoi backpack.")
+else:
+    print("'" + vat_pham_xoa + "' khong co trong backpack.")
+
+print("Backpack sau khi xoa:", hanh_ly["backpack"])
+
+
+#7.8
+ton_kho = {
+    "apple" : 10,
+    "banana": 5,
+    "orange": 8,
+    "mango" : 3
+}
+
+don_gia = {
+    "apple" : 5000,
+    "banana": 3000,
+    "orange": 7000,
+    "mango" : 12000
+}
+
+print("-" * 40)
+print(f"{'Mat hang':<12} {'So luong':>8} {'Don gia':>10} {'Thanh tien':>12}")
+print("-" * 40)
+
+tong_hoa_don = 0
+for mat_hang in ton_kho:
+    so_luong   = ton_kho[mat_hang]
+    gia        = don_gia[mat_hang]
+    thanh_tien = so_luong * gia
+    tong_hoa_don = tong_hoa_don + thanh_tien
+    print(f"{mat_hang:<12} {so_luong:>8} {gia:>10,} {thanh_tien:>12,}")
+
+print("-" * 40)
+print(f"{'TONG CONG':<32} {tong_hoa_don:>12,}")
+print("-" * 40)
+
+
+#7.9
+don_hang = {
+    "apple" : 3,
+    "banana": 2,
+    "mango" : 1
+}
+
+print("Xu ly don hang:")
+for mat_hang in don_hang:
+    so_ban = don_hang[mat_hang]
+    if mat_hang in ton_kho:
+        if ton_kho[mat_hang] >= so_ban:
+            ton_kho[mat_hang] = ton_kho[mat_hang] - so_ban
+            print(" ", mat_hang, ": ban", so_ban, "-> con lai", ton_kho[mat_hang])
         else:
-            hoc_luc = 'F'
-        print(f"{ten}: {diem_so} -> {hoc_luc}")
+            print(" ", mat_hang, ": khong du hang (chi con", ton_kho[mat_hang], ")")
+    else:
+        print(" ", mat_hang, ": khong co trong kho.")
 
-# 7.3
-def bai_73():
-    n = int(input("So sinh vien: "))
-    diem_dict = {}
-    
-    for i in range(n):
-        ten = input("Ten: ")
-        diem = float(input("Diem: "))
-        diem_dict[ten] = diem
-    
-    hoc_luc_dict = {}
-    for ten in diem_dict:
-        diem_so = diem_dict[ten]
-        if diem_so >= 8.5:
-            hoc_luc = 'A'
-        elif diem_so >= 7.5:
-            hoc_luc = 'B'
-        elif diem_so >= 6.5:
-            hoc_luc = 'C'
-        elif diem_so >= 5.5:
-            hoc_luc = 'D'
-        else:
-            hoc_luc = 'F'
-        
-        if hoc_luc in hoc_luc_dict:
-            hoc_luc_dict[hoc_luc] += 1
-        else:
-            hoc_luc_dict[hoc_luc] = 1
-    
-    for hoc_luc in sorted(hoc_luc_dict, reverse=True):
-        print(f"{hoc_luc}: {hoc_luc_dict[hoc_luc]}")
+print("Ton kho sau giao dich:", ton_kho)
 
-# 7.4
-def bai_74():
-    van_ban = input("Van ban: ").lower()
-    
-    ky_tu_xoa = ",.!?;:()"
-    for ky in ky_tu_xoa:
-        van_ban = van_ban.replace(ky, "")
-    
-    danh_sach_tu = van_ban.split()
-    tu_dict = {}
-    
-    for tu in danh_sach_tu:
-        if tu in tu_dict:
-            tu_dict[tu] += 1
-        else:
-            tu_dict[tu] = 1
-    
-    for tu in tu_dict:
-        print(f"{tu}: {tu_dict[tu]}")
 
-# 7.5
-def bai_75():
-    van_ban = input("Van ban: ").lower()
-    
-    ky_tu_xoa = ",.!?;:()"
-    for ky in ky_tu_xoa:
-        van_ban = van_ban.replace(ky, "")
-    
-    danh_sach_tu = van_ban.split()
-    tu_dict = {}
-    
-    for tu in danh_sach_tu:
-        if tu in tu_dict:
-            tu_dict[tu] += 1
-        else:
-            tu_dict[tu] = 1
-    
-    tu_cao_nhat = None
-    tan_cao_nhat = 0
-    for tu in tu_dict:
-        if tu_dict[tu] > tan_cao_nhat:
-            tan_cao_nhat = tu_dict[tu]
-            tu_cao_nhat = tu
-    
-    tu_thap_nhat = None
-    tan_thap_nhat = float('inf')
-    for tu in tu_dict:
-        if tu_dict[tu] < tan_thap_nhat:
-            tan_thap_nhat = tu_dict[tu]
-            tu_thap_nhat = tu
-    
-    print(f"Cao nhat: '{tu_cao_nhat}' ({tan_cao_nhat})")
-    print(f"Thap nhat: '{tu_thap_nhat}' ({tan_thap_nhat})")
+#7.10
+kho_hang  = {"apple", "banana", "orange", "mango", "grape", "pear"}
+gio_hang  = {"apple", "mango", "grape"}
 
-# 7.6
-def bai_76():
-    hanh_trang = {
-        'vang': 50,
-        'kiem': 1,
-        'khien': 1,
-        'thuoc': 5,
-        'tui': []
-    }
-    
-    print(f"Vang: {hanh_trang['vang']}")
-    print(f"Kiem: {hanh_trang['kiem']}")
-    print(f"Khien: {hanh_trang['khien']}")
-    print(f"Thuoc: {hanh_trang['thuoc']}")
-    print(f"Tui: {hanh_trang['tui']}")
-    
-    so_vat_pham = int(input("Vat pham: "))
-    for i in range(so_vat_pham):
-        vat = input()
-        hanh_trang['tui'].append(vat)
-    
-    them_vang = int(input("Them vang: "))
-    hanh_trang['vang'] += them_vang
-    
-    print(f"Vang: {hanh_trang['vang']}")
-    print(f"Tui: {hanh_trang['tui']}")
+chua_duoc_chon = kho_hang - gio_hang
 
-# 7.7
-def bai_77():
-    hanh_trang = {'vat_pham': ['kiem', 'thuoc', 'tao', 'banh', 'khien']}
-    
-    print(f"Truoc: {hanh_trang['vat_pham']}")
-    
-    for i in range(len(hanh_trang['vat_pham'])):
-        for j in range(i+1, len(hanh_trang['vat_pham'])):
-            if hanh_trang['vat_pham'][i] > hanh_trang['vat_pham'][j]:
-                temp = hanh_trang['vat_pham'][i]
-                hanh_trang['vat_pham'][i] = hanh_trang['vat_pham'][j]
-                hanh_trang['vat_pham'][j] = temp
-    
-    print(f"Sau: {hanh_trang['vat_pham']}")
-    
-    vat_xoa = input("Loai bo: ")
-    if vat_xoa in hanh_trang['vat_pham']:
-        vi_tri = -1
-        for i in range(len(hanh_trang['vat_pham'])):
-            if hanh_trang['vat_pham'][i] == vat_xoa:
-                vi_tri = i
-                break
-        if vi_tri != -1:
-            hanh_trang['vat_pham'].pop(vi_tri)
-        print(f"Ket qua: {hanh_trang['vat_pham']}")
-
-# 7.8
-def bai_78():
-    so_luong = {'tao': 5, 'banh': 3, 'sua': 2, 'trung': 10}
-    gia = {'tao': 10000, 'banh': 25000, 'sua': 35000, 'trung': 2500}
-    
-    print("="*50)
-    tong_cong = 0
-    
-    for vat_pham in so_luong:
-        sl = so_luong[vat_pham]
-        don_gia = gia[vat_pham]
-        thanh_tien = sl * don_gia
-        tong_cong += thanh_tien
-        print(f"{vat_pham:15} | SL:{sl:3} | Don gia:{don_gia:8} | Thanh tien:{thanh_tien:12}")
-    
-    print("-"*50)
-    print(f"TONG: {tong_cong}")
-
-# 7.9
-def bai_79():
-    ton_kho = {'tao': 10, 'banh': 8, 'sua': 5, 'trung': 20}
-    giao_dich = {'tao': 3, 'banh': 2, 'sua': 1, 'trung': 5}
-    
-    print(f"Ban dau: {ton_kho}")
-    
-    for vat_pham in giao_dich:
-        ton_kho[vat_pham] -= giao_dich[vat_pham]
-    
-    print(f"Sau: {ton_kho}")
-
-# 7.10
-def bai_710():
-    kho = {'tao', 'banh', 'sua', 'trung', 'pho mai', 'bo'}
-    khach = {'tao', 'sua', 'trung', 'yogurt'}
-    
-    print(f"Kho: {kho}")
-    print(f"Khach chon: {khach}")
-    
-    co_san = kho & khach
-    khong_co = khach - kho
-    chua_chon = kho - khach
-    
-    print(f"Co san: {co_san}")
-    print(f"Khong co: {khong_co}")
-    print(f"Chua chon: {chua_chon}")
-
-if __name__ == "__main__":
-    danh_sach_bai = [bai_71, bai_72, bai_73, bai_74, bai_75, bai_76, bai_77, bai_78, bai_79, bai_710]
-    while True:
-        lua_chon = input("Chon bai (1-10, 0=thoat): ")
-        if lua_chon == "0": 
-            break
-        if lua_chon.isdigit() and 1 <= int(lua_chon) <= 10:
-            danh_sach_bai[int(lua_chon)-1]()
-        else:
-            print("Lua chon khong hop le")
+print("Kho hang  :", kho_hang)
+print("Gio hang  :", gio_hang)
+print("Hang chua duoc chon mua:", chua_duoc_chon)
